@@ -1,13 +1,15 @@
 package br.com.fiap.ws.view;
 
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Text;
+
+import br.com.fiap.repository.NotaRepository;
 
 public class Tela {
 
@@ -18,6 +20,7 @@ public class Tela {
 
 	/**
 	 * Launch the application.
+	 * 
 	 * @param args
 	 */
 	public static void main(String[] args) {
@@ -51,35 +54,41 @@ public class Tela {
 		shell = new Shell();
 		shell.setSize(222, 202);
 		shell.setText("SWT Application");
-		
+
 		txtAm = new Text(shell, SWT.BORDER);
 		txtAm.setBounds(98, 10, 76, 21);
-		
+
 		txtNac = new Text(shell, SWT.BORDER);
 		txtNac.setBounds(98, 37, 76, 21);
-		
+
 		Label lblAm = new Label(shell, SWT.NONE);
 		lblAm.setBounds(10, 13, 55, 15);
 		lblAm.setText("AM:");
-		
+
 		Label lblNac = new Label(shell, SWT.NONE);
 		lblNac.setBounds(10, 40, 55, 15);
 		lblNac.setText("NAC:");
-		
+
 		Button btnCalcular = new Button(shell, SWT.NONE);
 		btnCalcular.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
+				float am = Float.parseFloat(txtAm.getText());
+				float nac = Float.parseFloat(txtNac.getText());
 				
+				NotaRepository repository = new NotaRepository();
+				float ps = repository.calcularPs(am, nac);
+				
+				txtPs.setText(Float.toString(ps));
 			}
 		});
 		btnCalcular.setBounds(98, 90, 75, 25);
 		btnCalcular.setText("Calcular");
-		
+
 		Label lblPs = new Label(shell, SWT.NONE);
 		lblPs.setBounds(10, 125, 55, 15);
 		lblPs.setText("PS:");
-		
+
 		txtPs = new Text(shell, SWT.BORDER);
 		txtPs.setBounds(98, 121, 76, 21);
 
