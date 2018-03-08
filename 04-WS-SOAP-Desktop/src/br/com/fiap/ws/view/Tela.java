@@ -85,7 +85,6 @@ public class Tela {
 					err.printStackTrace();
 					return;
 				}
-				
 
 				try {
 					NotaRepository repository = new NotaRepository();
