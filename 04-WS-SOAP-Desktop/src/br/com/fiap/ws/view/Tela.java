@@ -6,6 +6,7 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
@@ -73,13 +74,28 @@ public class Tela {
 		btnCalcular.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				float am = Float.parseFloat(txtAm.getText());
-				float nac = Float.parseFloat(txtNac.getText());
+				float am = 0f;
+				float nac = 0;
 				
-				NotaRepository repository = new NotaRepository();
-				float ps = repository.calcularPs(am, nac);
+				try {
+					am = Float.parseFloat(txtAm.getText());
+					nac = Float.parseFloat(txtNac.getText());
+				} catch (Exception err) {
+					displayMessage("Erro!", "Erro ao converter valores inseridos.", err.getMessage(), SWT.ERROR);
+					err.printStackTrace();
+					return;
+				}
 				
-				txtPs.setText(Float.toString(ps));
+
+				try {
+					NotaRepository repository = new NotaRepository();
+					float ps = repository.calcularPs(am, nac);
+
+					txtPs.setText(Float.toString(ps));
+				} catch (Exception err) {
+					displayMessage("Erro!", "Erro ao processar nota da PS.", err.getMessage(), SWT.ERROR);
+					err.printStackTrace();
+				}
 			}
 		});
 		btnCalcular.setBounds(98, 90, 75, 25);
@@ -92,5 +108,13 @@ public class Tela {
 		txtPs = new Text(shell, SWT.BORDER);
 		txtPs.setBounds(98, 121, 76, 21);
 
+	}
+	
+	private void displayMessage(String title, String message, String stack, int type) {
+		MessageBox messageBox = new MessageBox(shell, type);
+
+		messageBox.setText(title);
+		messageBox.setMessage(message + "\nStack: " + stack);
+		messageBox.open();
 	}
 }

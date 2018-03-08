@@ -6,24 +6,19 @@ import br.com.fiap.bo.NotaBOStub.CalcPsResponse;
 
 public class NotaRepository {
 
-	public float calcularPs(float am, float nac) {
+	private NotaBOStub stub;
+	
+	public float calcularPs(float am, float nac) throws Exception {
 
-		try {
-			NotaBOStub req = new NotaBOStub();
-			
-			CalcPs params = new CalcPs();
-			params.setAm(am);
-			params.setNac(nac);
-			
-			CalcPsResponse res = req.calcPs(params);
-			
-			return res.get_return();
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		stub = new NotaBOStub();
 		
-		return 0f;
+		CalcPs params = new CalcPs();
+		params.setAm(am);
+		params.setNac(nac);
+		
+		CalcPsResponse res = stub.calcPs(params);
+		
+		return res.get_return();
 		
 	}
 	
