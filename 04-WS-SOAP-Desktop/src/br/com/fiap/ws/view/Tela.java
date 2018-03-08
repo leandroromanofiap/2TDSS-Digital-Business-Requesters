@@ -53,21 +53,21 @@ public class Tela {
 	 */
 	protected void createContents() {
 		shell = new Shell();
-		shell.setSize(222, 202);
-		shell.setText("SWT Application");
+		shell.setSize(285, 227);
+		shell.setText("Cálculo de Notas PS");
 
 		txtAm = new Text(shell, SWT.BORDER);
-		txtAm.setBounds(98, 10, 76, 21);
+		txtAm.setBounds(143, 24, 76, 21);
 
 		txtNac = new Text(shell, SWT.BORDER);
-		txtNac.setBounds(98, 37, 76, 21);
+		txtNac.setBounds(143, 51, 76, 21);
 
 		Label lblAm = new Label(shell, SWT.NONE);
-		lblAm.setBounds(10, 13, 55, 15);
+		lblAm.setBounds(55, 27, 55, 15);
 		lblAm.setText("AM:");
 
 		Label lblNac = new Label(shell, SWT.NONE);
-		lblNac.setBounds(10, 40, 55, 15);
+		lblNac.setBounds(55, 54, 55, 15);
 		lblNac.setText("NAC:");
 
 		Button btnCalcular = new Button(shell, SWT.NONE);
@@ -90,22 +90,22 @@ public class Tela {
 					NotaRepository repository = new NotaRepository();
 					float ps = repository.calcularPs(am, nac);
 
-					txtPs.setText(Float.toString(ps));
+					txtPs.setText(String.valueOf(ps));
 				} catch (Exception err) {
 					displayMessage("Erro!", "Erro ao processar nota da PS.", err.getMessage(), SWT.ERROR);
 					err.printStackTrace();
 				}
 			}
 		});
-		btnCalcular.setBounds(98, 90, 75, 25);
+		btnCalcular.setBounds(143, 104, 75, 25);
 		btnCalcular.setText("Calcular");
 
 		Label lblPs = new Label(shell, SWT.NONE);
-		lblPs.setBounds(10, 125, 55, 15);
+		lblPs.setBounds(55, 139, 55, 15);
 		lblPs.setText("PS:");
 
 		txtPs = new Text(shell, SWT.BORDER);
-		txtPs.setBounds(98, 121, 76, 21);
+		txtPs.setBounds(143, 135, 76, 21);
 
 	}
 	
